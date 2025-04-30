@@ -35,16 +35,7 @@ void you_can_do_it() {
         }
     }
     vector<vector<bool>> vis(n, vector<bool>(m,false));
-    int components = 0;
-    for(int i=0; i<n; ++i) {
-        for(int j=0; j<m; ++j) {
-            if(mat[i][j] == '.' && !vis[i][j]) {
-                ++components;
-                bfs(i, j, mat, vis);
-            }
-        }
-    }
-    cout<<components;
+    
 }
 
 int main()
