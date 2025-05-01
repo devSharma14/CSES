@@ -4,7 +4,7 @@ using namespace std;
 
 int dp[501][501];
 
-int recursion(int n, int m) {
+/*int recursion(int n, int m) {
     if(n == m) {
         return 0;
     }
@@ -25,7 +25,7 @@ int recursion(int n, int m) {
         n * 2 | n * m-2
         ...
         n * m-1 | n * 1
-    */
+    
 
     int minimum_moves = INT_MAX;
 
@@ -38,18 +38,30 @@ int recursion(int n, int m) {
     }
 
     return dp[n][m] = minimum_moves;
-}
+}*/
 
 void you_can_do_it() {
     int n,m;
     cin>>n>>m;
-    for(int i=0; i<=n; ++i) {
-        for(int j=0; j<=m; ++j) {
-            dp[i][j] = -1;
+    // lets do it using tabulation
+    for(int i=1; i<=n; ++i) {
+        for(int j=1; j<=m; ++j) {
+            if(i == j) {
+                dp[i][i] = 0;
+            }
+            else {
+                int ans = INT_MAX;
+                for(int k=1; k<=i-1; ++k) {
+                    ans = min(ans, 1 + dp[k][j] + dp[i-k][j]);
+                }
+                for(int k=1; k<=j-1; ++k) {
+                    ans = min(ans, 1 + dp[i][k] + dp[i][j-k]);
+                }
+                dp[i][j] = ans;
+            }
         }
     }
-    int ans = recursion(n,m);
-    cout << ans;
+    cout << dp[n][m];
 }
 
 int main()
